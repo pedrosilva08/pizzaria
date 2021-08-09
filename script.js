@@ -3,6 +3,8 @@
 //map em todos ao mesmo tempo   (execuçaõda função)
 //----------passo 1° - adicionando pizzas a estrutura
 let modalQT = 1;//quantidade padrão de pizzas
+let cart = [];
+let modalKey = 0//identificador da pizza
 const c = (el)=>{//atalho para não repetir diversas vezes o queryselector
     return document.querySelector(el);
 }
@@ -31,6 +33,7 @@ pizzaJson.map((item,index)=>{//2 parametros(cada item = informação de cada piz
         //----------passso 4° inserindo informações no modal
             let key = e.target.closest('.pizza-item').getAttribute('data-key')//seleção do proprio elemento 'a' e buscando um elemento mais proximo no caso o '.pizza-item'
             modalQT = 1;//sempre inicia com a quantidade de pizzas igual a 1
+            modalKey = key//identificador da pizza
         //resumindo o key armazena o index
         c('.pizzaBig img').src = pizzaJson[key].img;
         c('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
@@ -94,6 +97,25 @@ cs('.pizzaInfo--size').forEach((size,sizeIndex)=>{//size = proprio item -> execu
         size.classList.add('selected');
     });
 });
+//--------------------------------parte 9 adcionando itens ao carrinho de compras---------------------------------------
+c('.pizzaInfo--addButton').addEventListener('click',()=>{
+    /*
+    //qual é a pizza
+    console.log('pizza: '+modalKey)//identificador da pizza
+    //qual é o tamanho selecionado
+    let size = c('.pizzaInfo--size.selected').getAttribute('data-key');//seleciona o elemento e pega o atributo no caso o tamanho
+    console.log('tamanho: '+size)
+    //quantas pizzas adicionadas
+    console.log('quantidade: '+modalQT)
+    */
+    let size = parseInt(c('.pizzaInfo--size.selected').getAttribute('data-key'));//seleciona o elemento e pega o atributo no caso o tamanho
+    cart.push({//adcicionando objetos ao array cart
+        id:pizzaJson[modalKey].id,
+        size:size,
+        qt:modalQT,
+    });
+    closeModal();
+})
 
 
 
