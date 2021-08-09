@@ -99,15 +99,6 @@ cs('.pizzaInfo--size').forEach((size,sizeIndex)=>{//size = proprio item -> execu
 });
 //--------------------------------parte 9 adcionando itens ao carrinho de compras---------------------------------------
 c('.pizzaInfo--addButton').addEventListener('click',()=>{
-    /*
-    //qual é a pizza
-    console.log('pizza: '+modalKey)//identificador da pizza
-    //qual é o tamanho selecionado
-    let size = c('.pizzaInfo--size.selected').getAttribute('data-key');//seleciona o elemento e pega o atributo no caso o tamanho
-    console.log('tamanho: '+size)
-    //quantas pizzas adicionadas
-    console.log('quantidade: '+modalQT)
-    */
     let size = parseInt(c('.pizzaInfo--size.selected').getAttribute('data-key'));//seleciona o elemento e pega o atributo no caso o tamanho
     
     //-------parte 10  filtrando pizzas--------------
@@ -128,9 +119,25 @@ c('.pizzaInfo--addButton').addEventListener('click',()=>{
     }
     //-----------------------------------------------
     
-    
+    updateCart();
     closeModal();
 });
+
+//===================================parte 11 fazendo atualizações no carrinho de compras-----------
+function updateCart(){//função que atualiza o carrinho a cada nova adição de itens
+    if (cart.length > 0) {
+        c('aside').classList.add('show')//faz aparecer o carrinho
+        for(let i in cart){
+
+            let pizzaItem = pizzaJson.find(()=>{
+                returnitem.id == cart[i].id;
+            });//procura o id dentro do pizzajason e retorna os itens da pizza
+
+        }
+    }else{
+        c('aside').classList.remove('show')//faz desaparecer o carrinho
+    }
+}
 
 
 
