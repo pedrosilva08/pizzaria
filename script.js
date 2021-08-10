@@ -127,12 +127,36 @@ c('.pizzaInfo--addButton').addEventListener('click',()=>{
 function updateCart(){//função que atualiza o carrinho a cada nova adição de itens
     if (cart.length > 0) {
         c('aside').classList.add('show')//faz aparecer o carrinho
+        c('.cart').innerHTML = '';//para zerar as listas a cada inicio do cart
         for(let i in cart){
 
-            let pizzaItem = pizzaJson.find(()=>{
-                returnitem.id == cart[i].id;
+            let pizzaItem = pizzaJson.find((item)=>{
+                return item.id == cart[i].id;
             });//procura o id dentro do pizzajason e retorna os itens da pizza
+   //----------------------------parte 12 adionando informações e itens no carrinho de compras        
+            let cartItem = c('.models .cart--item').cloneNode(true);//clona 
 
+            let pizzaSizeName;
+            switch(cart[i].size){
+                case 0:
+                    pizzaSizeName = "P";
+                    break;
+                case 1:
+                    pizzaSizeName = "M";
+                    break;
+                case 2:
+                    pizzaSizeName = 'G'
+                    break;
+            }
+
+            let pizzaName = `${pizzaItem.name} (${pizzaSizeName})`;
+
+            cartItem.querySelector('img').src = pizzaItem.img
+            cartItem.querySelector('.cart--item-nome').innerHTML = pizzaName;
+            cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].qt;
+
+            c('.cart').append(cartItem);//adiciona
+    //----------------------------------------------------------------------------------------
         }
     }else{
         c('aside').classList.remove('show')//faz desaparecer o carrinho
